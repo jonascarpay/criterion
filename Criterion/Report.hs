@@ -61,13 +61,11 @@ import qualified Data.Vector.Generic as G
 import qualified Data.Vector.Unboxed as U
 
 #if defined(EMBED)
-import Criterion.EmbeddedData (dataFiles, jQueryContents, flotContents,
-                               flotErrorbarsContents, flotNavigateContents)
+import Criterion.EmbeddedData (dataFiles, chartContents)
 import qualified Data.ByteString.Lazy as BL
 import qualified Data.Text.Encoding as TE
 #else
-import qualified Language.Javascript.Flot as Flot
-import qualified Language.Javascript.JQuery as JQuery
+import qualified Language.Javascript.Chart as Chart
 #endif
 
 -- | Trim long flat tails from a KDE plot.
@@ -113,12 +111,9 @@ formatReport reports templateName = do
         Left err -> fail (show err) -- TODO: throw a template exception?
         Right x -> return x
 
-    jQuery            <- jQueryFileContents
-    flot              <- flotFileContents
-    flotErrorbars     <- flotErrorbarsFileContents
-    flotNavigate      <- flotNavigateFileContents
-    jQueryCriterionJS <- readDataFile ("js" </> "jquery.criterion.js")
-    criterionCSS      <- readDataFile "criterion.css"
+    criterionJS <- readDataFile "criterion.js"
+    criterionCSS <- readDataFile "criterion.css"
+    chartJS <- chartFileContents
 
     -- includes, only top level
     templates <- getTemplateDir
@@ -128,11 +123,8 @@ formatReport reports templateName = do
     let context = object
             [ "json"                .= reports
             , "report"              .= reports'
-            , "js-jquery"           .= jQuery
-            , "js-flot"             .= flot
-            , "js-flot-errorbars"   .= flotErrorbars
-            , "js-flot-navigate"    .= flotNavigate
-            , "jquery-criterion-js" .= jQueryCriterionJS
+            , "js-criterion"        .= criterionJS
+            , "js-chart"            .= chartJS
             , "criterion-css"       .= criterionCSS
             ]
 
@@ -152,17 +144,11 @@ formatReport reports templateName = do
         criterionWarning $ displayMustacheWarning warning
     return formatted
   where
-    jQueryFileContents, flotFileContents :: IO T.Text
+    chartFileContents :: IO T.Text
 #if defined(EMBED)
-    jQueryFileContents        = pure $ TE.decodeUtf8 jQueryContents
-    flotFileContents          = pure $ TE.decodeUtf8 flotContents
-    flotErrorbarsFileContents = pure $ TE.decodeUtf8 flotErrorbarsContents
-    flotNavigateFileContents  = pure $ TE.decodeUtf8 flotNavigateContents
+    chartFileContents        = pure $ TE.decodeUtf8 chartContents
 #else
-    jQueryFileContents        = T.readFile =<< JQuery.file
-    flotFileContents          = T.readFile =<< Flot.file Flot.Flot
-    flotErrorbarsFileContents = T.readFile =<< Flot.file Flot.FlotErrorbars
-    flotNavigateFileContents  = T.readFile =<< Flot.file Flot.FlotNavigate
+    chartFileContents        = T.readFile =<< Chart.file Chart.Chart
 #endif
 
     readDataFile :: FilePath -> IO T.Text
