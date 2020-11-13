@@ -68,7 +68,7 @@
 
     <p>
       In this report, each function benchmarked by criterion is assigned a section of its own.
-      The charts in each section are active; if you hover your mouse over data points and annotations, you will see more details.
+      <span class="no-print">The charts in each section are active; if you hover your mouse over data points and annotations, you will see more details.</span>
     </p>
 
     <ul>
@@ -80,9 +80,10 @@
 
       <li>
         The chart on the right is the raw data from which the kernel density estimate is built.
-        The <em>x</em> axis indicates the number of loop iterations, while the <em>y</em> axis shows measured execution time for the given number of loop iterations.
-        The line behind the values is the linear regression prediction of execution time for a given number of iterations.
+        The <em>x</em>-axis indicates the number of loop iterations, while the <em>y</em>-axis shows measured execution time for the given number of loop iterations.
+        The line behind the values is the linear regression estimate of execution time for a given number of iterations.
         Ideally, all measurements will be on (or very near) this line.
+        The transparent area behind it shows the confidence interval for the execution time estimate.
       </li>
     </ul>
 
@@ -109,7 +110,7 @@
     <p>
       We use a statistical technique called the <a href="http://en.wikipedia.org/wiki/Bootstrapping_(statistics)">bootstrap</a> to provide confidence intervals on our estimates.
       The bootstrap-derived upper and lower bounds on estimates let you see how accurate we believe those estimates to be.
-      (Hover the mouse over the table headers to see the confidence levels.)
+      <span class="no-print">(Hover the mouse over the table headers to see the confidence levels.)</span>
     </p>
 
     <p>
