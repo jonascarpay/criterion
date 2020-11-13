@@ -22,11 +22,12 @@
         <option value="report-index">index</option>
         <option value="lex">lexical</option>
         <option value="colex">colexical</option>
-        <option value="duration">increasing time</option>
-        <option value="rev-duration">decreasing time</option>
+        <option value="duration">time ascending</option>
+        <option value="rev-duration">time descending</option>
       </select>
-      <span id="explain-interactivity">
-        click bar/label to zoom. click x-axis for logarithmic scale.
+      <span class="overview-info">
+        <a href="#controls-explanation" class="info" title="click bar/label to zoom; x-axis to toggle logarithmic scale; background to reset">&#9432;</a>
+        <a id="legend-toggle" class="chevron button"></a>
       </span>
     </div>
     <aside id="overview-chart"></aside>
@@ -35,20 +36,39 @@
     <div id="report-data" data-report-json='{{{json}}}'></div>
   </div>
 
-  <aside id="grokularation" class="grokularation">
+  <aside id="controls-explanation" class="explanation no-print">
+    <h1><a href="#controls-explanation">controls</a></h1>
+
+    <p>
+      The overview chart can be controlled by clicking the following elements:
+      <ul>
+        <li><em>a bar or its label</em> zooms the x-axis to that bar</li>
+        <li><em>the background</em> resets zoom to the entire chart</li>
+        <li><em>the x-axis</em> toggles between linear and logarithmic scale</li>
+        <li><em>the chevron</em> in the top-right toggles the the legend</li>
+        <li><em>a group name in the legend</em> shows/hides that group</li>
+      </ul>
+    </p>
+
+    <p>
+      The overview chart supports the following sort orders:
+      <ul>
+        <li><em>index</em> order is the order as the benchmarks are defined in criterion</li>
+        <li><em>lexical</em> order sorts groups left-to-right, alphabetically</li>
+        <li><em>colexical</em> order sorts groups right-to-left, alphabetically</li>
+        <li><em>time ascending/descending</em> order sorts by the estimated mean execution time</li>
+      </ul>
+    </p>
+
+  </aside>
+
+  <aside id="grokularation" class="explanation">
 
     <h1><a>understanding this report</a></h1>
 
     <p>
       In this report, each function benchmarked by criterion is assigned a section of its own.
-      <span class="no-print">The charts in each section are active; if you hover your mouse over data points and annotations, you will see more details.</span>
-
-      The first chart on this page provides an overview of the estimated mean execution time for each benchmark.
-      The colors of the bars are given by the benchmark groups.
-
-      <span class="no-print">
-      If you click the x-axis in the overview chart the scale toggles between a linear scale and a logatithmic one.
-      </span>
+      The charts in each section are active; if you hover your mouse over data points and annotations, you will see more details.
     </p>
 
     <ul>
@@ -89,7 +109,7 @@
     <p>
       We use a statistical technique called the <a href="http://en.wikipedia.org/wiki/Bootstrapping_(statistics)">bootstrap</a> to provide confidence intervals on our estimates.
       The bootstrap-derived upper and lower bounds on estimates let you see how accurate we believe those estimates to be.
-      <span class="no-print">(Hover the mouse over the table headers to see the confidence levels.)</span>
+      (Hover the mouse over the table headers to see the confidence levels.)
     </p>
 
     <p>
@@ -99,7 +119,6 @@
     </p>
 
   </aside>
-
 
   <footer>
     <div class="content">
