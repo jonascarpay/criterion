@@ -18,6 +18,37 @@ div.scatter, div.kde {
   padding: 0 20px;
 }
 
+.overview-info {
+  float:right;
+}
+
+.overview-info a {
+  display: inline-block;
+  margin-left: 10px;
+}
+.overview-info .info {
+  font-size: 120%;
+  font-weight: 400;
+  vertical-align: middle;
+  line-height: 1em;
+}
+.chevron {
+  position:relative;
+  color: black;
+  display:block;
+  transition-property: transform;
+  transition-duration: 400ms;
+  line-height: 1em;
+  font-size: 180%;
+}
+.chevron.right {
+  transform: scale(-1,1);
+}
+.chevron::before {
+  vertical-align: middle;
+  content:"\2039";
+}
+
 select {
   outline: none;
   border:none;

@@ -295,6 +295,7 @@
     chart.config.data.datasets[0].backgroundColor = data.datasets[0].backgroundColor;
     chart.config.data.datasets[0].data = data.datasets[0].data;
     chart.options.scales.xAxes[0].type = axisType(state.logaxis);
+    chart.options.legend.display = state.legend;
     chart.data.labels = data.labels;
     chart.update();
   }
@@ -382,7 +383,9 @@
       activeReport: null,
       order: 'index',
       hidden: {},
+      legend: false,
     };
+
 
     var data = overviewData(state, reports);
     var chart = new Chart(canvas.getContext('2d'), {
@@ -417,7 +420,7 @@
         responsive: true,
         maintainAspectRatio: false,
         legend: {
-          display: true,
+          display: state.legend,
           position: 'right',
           onLeave: function(event) {
             chart.canvas.style.cursor = 'default';
@@ -471,6 +474,16 @@
     });
     document.getElementById('sort-overview')
       .addEventListener('change', overviewSort(state, reports, chart));
+    var toggle = document.getElementById('legend-toggle');
+    toggle.addEventListener('mouseup', function () {
+      state.legend = !state.legend;
+      if(state.legend) {
+        toggle.classList.add('right');
+      } else {
+        toggle.classList.remove('right');
+      }
+      renderOverview(state, reports, chart);
+    })
     return canvas;
   }
 
