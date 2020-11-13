@@ -25,6 +25,9 @@
         <option value="duration">increasing time</option>
         <option value="rev-duration">decreasing time</option>
       </select>
+      <span id="explain-interactivity">
+        click bar/label to zoom. click x-axis for logatithmic scale.
+      </span>
     </div>
     <aside id="overview-chart"></aside>
     <main id="reports"></main>

@@ -31,7 +31,12 @@ footer .content {
   padding: 0;
 }
 
-
+span#explain-interactivity {
+  display-block: inline;
+  float: right;
+  color: #444;
+  font-size: 0.7em;
+}
 
 @media screen and (max-width: 800px) {
   div.scatter, div.kde {
