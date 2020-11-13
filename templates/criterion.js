@@ -169,7 +169,7 @@
 
   function timeUnits(secs) {
     if (secs < 0)
-      return $.timeUnits(-secs);
+      return timeUnits(-secs);
     else if (secs >= 1e9)
       return [1e-9, "Gs"];
     else if (secs >= 1e6)
@@ -208,7 +208,9 @@
                : order === 'duration'     ? durationSort
                : order === 'rev-duration' ? reverseDurationSort
                : reportSort;
-    var sortedReports = reports.slice().sort(sorter);
+    var sortedReports = reports.filter(function(report) {
+      return !state.hidden[report.groupNumber];
+    }).slice().sort(sorter);
     var data = sortedReports.map(function(report) {
       return report.reportAnalysis.anMean.estPoint;
     });
@@ -230,7 +232,7 @@
     });
     var top = sortedReports.map(upperBound).reduce(function(a, b) {
       return Math.max(a, b);
-    });
+    }, 0);
     var scale = top;
     if(state.activeReport !== null) {
       reports.forEach(function(report) {
@@ -317,18 +319,21 @@
       if (inside(xAxis, point)) {
         state.activeReport = null;
         state.logaxis = !state.logaxis;
+        renderOverview(state, reports, chart);
       } else if (inside(yAxis, point)) {
         var index = yAxis.getValueForPixel(point.y);
         activateBar(index);
+        renderOverview(state, reports, chart);
       } else if (elems.length > 0) {
         var elem = elems[0];
         var index = elem._index;
         activateBar(index);
         state.logaxis = false;
-      } else {
+        renderOverview(state, reports, chart);
+      } else if(inside(chart.chartArea, point)) {
         state.activeReport = null;
+        renderOverview(state, reports, chart);
       }
-      renderOverview(state, reports, chart);
     };
   }
 
@@ -376,6 +381,7 @@
       logaxis: false,
       activeReport: null,
       order: 'index',
+      hidden: {},
     };
 
     var data = overviewData(state, reports);
@@ -411,8 +417,42 @@
         responsive: true,
         maintainAspectRatio: false,
         legend: {
-          display: false,
+          display: true,
           position: 'right',
+          onLeave: function(event) {
+            chart.canvas.style.cursor = 'default';
+          },
+          onHover: function(event, item) {
+            chart.canvas.style.cursor = 'pointer';
+          },
+          onClick: function(event, item) {
+            // toggle hidden
+            state.hidden[item.groupNumber] = !state.hidden[item.groupNumber];
+            renderOverview(state, reports, chart);
+          },
+          labels: {
+            generateLabels: function() {
+              var groups = [];
+              var groupNames = [];
+              reports.forEach(function(report) {
+                var index = groups.indexOf(report.groupNumber);
+                if (index === -1) {
+                  groups.push(report.groupNumber);
+                  var groupName = report.groups.slice(0,report.groups.length-1).join(' / ');
+                  groupNames.push(groupName);
+                }
+              });
+              return groups.map(function(groupNumber, index) {
+                var color = colors[groupNumber % colors.length];
+                return {
+                  text: groupNames[index],
+                  fillStyle: color,
+                  hidden: state.hidden[groupNumber],
+                  groupNumber: groupNumber,
+                };
+              });
+            },
+          },
         },
         tooltips: {
           position: 'cursor',
