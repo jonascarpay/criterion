@@ -51,7 +51,6 @@ span#explain-interactivity {
   }
 }
 .kde canvas {
-  border-top: 1px solid rgba(0,0,0,0.1);
 }
 table.analysis .low, table.analysis .high {
   opacity: 0.5;

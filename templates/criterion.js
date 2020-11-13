@@ -521,6 +521,10 @@
         },
       }],
       options: {
+        title: {
+          display: true,
+          text: report.groups.join(' / ') + ' — time densities',
+        },
         elements: {
           point: {
             radius: 0,
@@ -531,6 +535,10 @@
           xAxes: [{
             display: true,
             type: 'linear',
+            scaleLabel: {
+              display: true,
+              labelString: 'Time'
+            },
             ticks: {
               min: reportKDE.kdeValues[0] * scale,
               max: reportKDE.kdeValues[reportKDE.kdeValues.length - 1] * scale,
@@ -545,10 +553,13 @@
             }
           }],
           yAxes: [{
-            display: false,
+            display: true,
             type: 'linear',
             ticks: {
               min: 0,
+              callback: function() {
+                return '';
+              },
             },
           }]
         },
@@ -572,10 +583,6 @@
         hover: {
           intersect: false
         },
-        title: {
-          display: false,
-          text: 'Chart.js Horizontal Bar Chart'
-        }
       }
     });
     return canvas;
@@ -660,10 +667,18 @@
         ],
       },
       options: {
+        title: {
+          display: true,
+          text: report.groups.join(' / ') + ' — time per iteration',
+        },
         scales: {
           yAxes: [{
             display: true,
             type: 'linear',
+            scaleLabel: {
+              display: true,
+              labelString: 'Time'
+            },
             ticks: {
               callback: function(value, index, values) {
                 return formatTime(value);
@@ -673,6 +688,10 @@
           xAxes: [{
             display: true,
             type: 'linear',
+            scaleLabel: {
+              display: true,
+              labelString: 'Iterations'
+            },
             ticks: {
               callback: formatter,
               max: lastIter,
