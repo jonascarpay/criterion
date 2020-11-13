@@ -41,7 +41,14 @@
 
     <p>
       In this report, each function benchmarked by criterion is assigned a section of its own.
-      The charts in each section are active; if you hover your mouse over data points and annotations, you will see more details.
+      <span class="no-print">The charts in each section are active; if you hover your mouse over data points and annotations, you will see more details.</span>
+
+      The first chart on this page provides an overview of the estimated mean execution time for each benchmark.
+      The colors of the bars are given by the benchmark groups.
+
+      <span class="no-print">
+      If you click the x-axis in the overview chart the scale toggles between a linear scale and a logatithmic one.
+      </span>
     </p>
 
     <ul>
@@ -82,7 +89,7 @@
     <p>
       We use a statistical technique called the <a href="http://en.wikipedia.org/wiki/Bootstrapping_(statistics)">bootstrap</a> to provide confidence intervals on our estimates.
       The bootstrap-derived upper and lower bounds on estimates let you see how accurate we believe those estimates to be.
-      (Hover the mouse over the table headers to see the confidence levels.)
+      <span class="no-print">(Hover the mouse over the table headers to see the confidence levels.)</span>
     </p>
 
     <p>
