@@ -80,7 +80,6 @@
       } else {
         denom = 1;
       }
-      var str;
       if (denom > 1) {
         var value = (iters / denom).toFixed();
         return String(value) + '×10' + power;
@@ -96,7 +95,7 @@
 
   // Positions tooltips at cursor. Required for overview since the bars may
   // extend past the canvas width.
-  Chart.Tooltip.positioners.cursor = function(elems, position) {
+  Chart.Tooltip.positioners.cursor = function(_elems, position) {
     return position;
   }
 
@@ -232,7 +231,7 @@
     });
     var scale = top;
     if(state.activeReport !== null) {
-      reports.forEach(function(report, index) {
+      reports.forEach(function(report) {
         if(report.reportNumber === state.activeReport) {
           scale = upperBound(report);
         }
