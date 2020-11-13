@@ -461,6 +461,7 @@
           backgroundColor: '#00000000',
           data: data,
           hoverBorderWidth: 1,
+          pointHitRadius: 8,
         },
           {
             label: 'mean'
@@ -521,7 +522,7 @@
           position: 'right',
         },
         tooltips: {
-          mode: 'x',
+          mode: 'nearest',
           callbacks: {
             title: function() {
               return '';
@@ -573,6 +574,7 @@
           data: dataPoints,
           label: 'scatter',
           borderWidth: 2,
+          pointHitRadius: 8,
           borderColor: colors[1],
           backgroundColor: '#fff',
         },
