@@ -431,6 +431,7 @@
             renderOverview(state, reports, chart);
           },
           labels: {
+            boxWidth: 12,
             generateLabels: function() {
               var groups = [];
               var groupNames = [];
