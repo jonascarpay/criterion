@@ -37,9 +37,8 @@
         var easing = easingOptions.easingValue;
         chart.data.datasets.forEach(function(d, i) {
           var bars = chart.getDatasetMeta(i).data;
-          var values = d.data;
           var axis = chart.scales[chart.options.scales.xAxes[0].id];
-          bars.forEach(function(b, j) {
+          bars.forEach(function(b) {
             var value = axis.getValueForPixel(b._view.x);
             var final = axis.getValueForPixel(b._model.x);
             var errorBar = d.errorBars[b._model.label];
@@ -276,10 +275,7 @@
     var chart = this;
     var xAxis = chart.scales[chart.options.scales.xAxes[0].id];
     var yAxis = chart.scales[chart.options.scales.yAxes[0].id];
-    var point = {
-      x: event.pageX - chart.canvas.offsetLeft,
-      y: event.pageY - chart.canvas.offsetTop,
-    };
+    var point = Chart.helpers.getRelativePosition(event, chart);
     var over =
       (inside(xAxis, point) || inside(yAxis, point) || elems.length > 0);
     if (over) {
@@ -306,11 +302,7 @@
       var chart = this;
       var xAxis = chart.scales[chart.options.scales.xAxes[0].id];
       var yAxis = chart.scales[chart.options.scales.yAxes[0].id];
-      var point = {
-        x: event.pageX - chart.canvas.offsetLeft,
-        y: event.pageY - chart.canvas.offsetTop,
-      };
-
+      var point = Chart.helpers.getRelativePosition(event, chart);
       var sorted = overviewData(state, reports).reports;
 
       function activateBar(index) {
