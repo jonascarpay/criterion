@@ -7,10 +7,13 @@
   }, false);
 
   var errorBarPlugin = (function () {
-    function drawErrorBar(ctx, low, high, y, height, color) {
+    function drawErrorBar(chart, ctx, low, high, y, height, color) {
       ctx.save();
       ctx.lineWidth = 3;
       ctx.strokeStyle = color;
+      var area = chart.chartArea;
+      ctx.rect(area.left, area.top, area.right - area.left, area.bottom - area.top);
+      ctx.clip();
       ctx.beginPath();
       ctx.moveTo(low, y - height);
       ctx.lineTo(low, y + height);
@@ -50,7 +53,7 @@
             var h = easing === 1 ? finalHigh :
               conservativeError(b._view.x, b._model.x,
                 high, finalHigh, 1.0);
-            drawErrorBar(ctx, l, h, b._view.y, 4, errorBar.color);
+            drawErrorBar(chart, ctx, l, h, b._view.y, 4, errorBar.color);
           });
         });
       },
