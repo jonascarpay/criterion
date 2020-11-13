@@ -750,7 +750,7 @@
     var outliers = report.reportAnalysis.anOutlierVar;
     return elem('div', {className: 'outliers'}, [
       elem('p', {}, [
-        'Outlying measurements have a ',
+        'Outlying measurements have ',
         outliers.ovDesc,
         ' (', String((outliers.ovFraction * 100).toPrecision(3)), '%)',
         ' effect on estimated standard deviation.'
