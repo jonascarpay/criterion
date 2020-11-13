@@ -536,7 +536,7 @@
             display: true,
             type: 'linear',
             scaleLabel: {
-              display: true,
+              display: false,
               labelString: 'Time'
             },
             ticks: {
@@ -676,7 +676,7 @@
             display: true,
             type: 'linear',
             scaleLabel: {
-              display: true,
+              display: false,
               labelString: 'Time'
             },
             ticks: {
@@ -689,7 +689,7 @@
             display: true,
             type: 'linear',
             scaleLabel: {
-              display: true,
+              display: false,
               labelString: 'Iterations'
             },
             ticks: {
